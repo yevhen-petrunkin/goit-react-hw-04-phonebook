@@ -18,6 +18,36 @@ export class App extends Component {
     filter: '',
   };
 
+  componentDidMount() {
+    try {
+      let contactData = JSON.parse(localStorage.getItem('contacts'));
+      if (contactData) {
+        this.setState({ contacts: contactData });
+
+        return;
+      }
+      contactData = this.state.contacts;
+      this.localStorageSetter(contactData);
+
+      return;
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  componentDidUpdate(_, prevState) {
+    try {
+      if (prevState !== this.state) {
+        this.localStorageSetter(this.state.contacts);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  localStorageSetter = data =>
+    localStorage.setItem('contacts', JSON.stringify(data));
+
   deleteContactHandler = id => {
     this.setState(({ contacts }) => ({
       contacts: contacts.filter(contact => contact.id !== id),
