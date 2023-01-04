@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Box } from '../Box';
 import { Form } from './Form.styled';
 import { FormName, FormNumber } from './FormInput';
